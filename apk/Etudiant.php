@@ -21,7 +21,7 @@ class Etudiant
 
 		$this->url="https://www.google.com";
 		
-		$this->serverLDAP="192.168.10.235";
+		$this->serverLDAP="192.168.10.121";
 		$this->passLDAP="123456";
 		$this->dnLDAP="cn=admin,dc=authentification,dc=com";
 	} 
@@ -79,8 +79,6 @@ class Etudiant
 					{
 						return "inscription";
 					}
-					
-
 					return "accepted";       
                 }
                 else

@@ -29,7 +29,7 @@ var delUser =function deleteUser(toDel){
         db.query("DELETE FROM connected WHERE mac = '"+toDel+"'");
     });
     io.emit('deconnex',toDel);
-    shell.exec("/home/raph35/Documents/Projets/findetudel3misa/gitHub/captivePortal/script_bash/./removeUser.sh " + toDel);
+    shell.exec("sudo /home/raph35/Documents/Projets/findetudel3misa/gitHub/captivePortal/script_bash/./removeUser.sh " + toDel);
 }
 
 io.on('connection',function(socket){
