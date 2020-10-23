@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Administration</title>
+</head>
+<body>
+	<script src='socket.io/socket.io.js'></script>
+	<script>
+		const socket= io();
+		//nouvel utilisateur
+		var receiveData= function(data){
+			var td=Array(5);
+			var tr=document.createElement('tr');
+			tr.setAttribute('id',data[1]);
+			document.getElementById('connected').appendChild(tr);
+			for(i=0;i<5;i++)
+			{
+				td[i]=document.createElement('td');
+				if(i<4){
+					td[i].innerHTML=data[i];
+				}
+				if(i==4){
+					td[i].innerHTML = 'Supprimer';
+					td[i].setAttribute('id','delete');
+					td[i].setAttribute('onclick',"delUser('"+data[1]+"')");
+				}
+				document.getElementById(data[1]).appendChild(td[i]);
+			
+			}
+		}
+		socket.on('connected',receiveData);
+		//chargement des anciens utilisateurs déja connécté
+		receiveAll=function(data){
+			for(i=0;i<data.length;i++)
+			{
+				var tr=document.createElement('tr');
+				tr.setAttribute('id',data[i].mac);
+				document.getElementById('connected').appendChild(tr);
+			
+				var td=Array(5);
+				var data1=Array(4);
+				var k=0;
+				for(j in data[i])
+				{
+					data1[k]=data[i][j];
+					k++;
+				}
+				for(j=0;j<5;j++)
+				{
+					td[j]=document.createElement('td');
+					if(j<4){
+						td[j].innerHTML=data1[j];
+					}
+					if(j==4){
+						td[j].innerHTML = 'Supprimer';
+						td[j].setAttribute('id','delete');
+						td[j].setAttribute('onclick',"delUser('"+data1[1]+"')");
+					}
+					document.getElementById(data[i].mac).appendChild(td[j]);
+				}
+			}
+		}
+		socket.on('select',receiveAll);
+		
+		var delUser = function(data){
+			socket.emit('delete',data);
+			document.getElementById(data).remove();
+		}
+		var delStud = function(data){
+			document.getElementById(data).remove();
+		}
+		socket.on('deconnex',delStud)
+	
+	</script>
+    <link rel="stylesheet" type="text/css" href="cssAdmin.css">   
+    <body>
+        <h3>Les utilisateurs connéctés</h3>
+        <div class="contenaire center">
+			<table class='customTable' id="connected">
+				<thead>
+				<tr>
+					<th style='border-width:1px;border-style:solid; width:20%;'>
+						Pseudo
+					</th>
+					<th style='border-width:1px;border-style:solid; width:20%;'>
+						Mac
+					</th>
+					<th style='border-width:1px;border-style:solid; width:20%;'>
+						Ip
+					</th>
+					<th style='border-width:1px;border-style:solid; width:20%;'>
+						Début de connection
+					</th>
+					<th style='border-width:1px;border-style:solid; width:20%;'>
+						Option de suppression
+					</th>
+				</tr>
+				</thead>
+				
+			</table>
+		</div>
+    </body>
+</body>
+</html>
