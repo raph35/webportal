@@ -38,11 +38,11 @@
                 $request.= "\n send(data);";
                 $request.="\n </script>";
                 echo $request;
+                $string_return = shell_exec("sudo /usr/local/lib/captiveportal/./addUser.sh " . $etudiant->mac);
                 $confirm="<script>";
                 $confirm.="alert('Bienvenu');document.location.href='".$etudiant->url."';";
                 $confirm.="\n</script>";
                 echo $confirm;
-                shell_exec("/home/raph35/Documents/Projets/findetudel3misa/gitHub/captivePortal/script_bash/./addUser.sh " . $etudiant->mac);
                 //header("Location:$etudiant->url");
             }
             if($this->result=="root")

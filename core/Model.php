@@ -1,5 +1,4 @@
-<?php 
-
+<?php
     $apacheHost=APACHESERVER;
     $dbName=BDNAME;
     $hostName=SQLUSER;

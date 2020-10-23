@@ -24,7 +24,7 @@ class Etudiant
 		
 		//LDAP server
 		/*
-		$this->serverLDAP="192.168.10.235";
+		$this->serverLDAP="192.168.10.121";
 		$this->passLDAP="123456";
 		$this->dnLDAP="cn=admin,dc=authentification,dc=com";
 		*/
@@ -73,7 +73,6 @@ class Etudiant
         ldap_set_option($ldap_con, LDAP_OPT_PROTOCOL_VERSION, 3);
         if(ldap_bind($ldap_con, $ldap_dn, $ldap_password))
         {
-
             //recherche du pseudo dans l'annuaire
             $filter = "(cn=$this->pseudo)";
             $result = ldap_search($ldap_con, "dc=authentification,dc=com", $filter) or exit("Unable to search");
@@ -84,6 +83,7 @@ class Etudiant
                 if (!empty( $entries[0]['userpassword'][0]) &&  $entries[0]['userpassword'][0]==$this->pass) {
 					//$mac=takeMac();
 					//test si l'utilisateur est root, inscription ou utilisateur normal
+
 					if($this->pseudo=="root")
 					{
 						return "root";
