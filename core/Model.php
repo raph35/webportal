@@ -1,15 +1,30 @@
 <?php
-    $apacheHost=APACHESERVER;
-    $dbName=BDNAME;
-    $hostName=SQLUSER;
-    $passServer=SQLPASS;
-    $conn = new PDO("mysql:host=$apacheHost;dbname=$dbName", $hostName, $passServer);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     class Model
     {
+        // public $apacheHost=APACHESERVER;
+        // public $dbName=BDNAME;
+        // $hostName=SQLUSER;
+        // $passServer=SQLPASS;
         public $table;
         public $id;
+        public $conn;
         
+        public function __construct()
+        {
+            // echo "Constrcuteur appelle";
+            // var_dump(APACHESERVER, BDNAME, SQLUSER, SQLPASS);
+            // die();
+            // mysql:host=localhost;dbname=portailcaptif", 'admin', 'admin#portal
+            echo "mysql:host=" . APACHESERVER . ";dbname=" . BDNAME;
+            try {
+                $this->conn = new PDO("mysql:host=" . APACHESERVER . ";dbname=" . BDNAME , SQLUSER, SQLPASS);
+                // $this->conn = new \PDO("mysql:host=localhost;dbname=portailcaptif", 'admin', 'admin#portal');
+                // var_dump($this->conn);
+                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (Exception $e) {		
+                echo "Connection failed: " . $e->getMessage();
+            }
+        }
         static function load($name)
         {
             require "models/$name.php";
@@ -107,4 +122,3 @@
         }
 
     }
- ?>

@@ -74,6 +74,25 @@ h1{
 	color: #fff;
 }
 
+.alert{
+	box-sizing: border-box;
+	width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+	border-radius: 5px;
+	text-align: center
+}
+
+.error{
+	border: solid 1px #b41f0e;
+	background-color: rgba(168, 17, 17, 0.308);
+}
+
+.succes{
+	border: solid 1px #035a00;
+	background-color: rgba(27, 168, 17, 0.281);
+}
+
 @media (min-width: 600px) and (max-width: 966px) {
 	
     .loginField {

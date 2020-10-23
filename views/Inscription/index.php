@@ -17,6 +17,13 @@ Page d'inscription de l'étudiant dans l'annuaire LDAP
 			<legend>
 				<h1>Inscrivez-vous</h1>
 			</legend>
+			<?php if(isset($succes)):?>
+				<div class="alert succes"><?=$succes?> </div>
+			<?php endif;?>
+
+			<?php if(isset($error)):?>
+				<div class="alert error"><?=$error??"";?></div>
+			<?php endif;?>
 			<div >
 				<label for="pseudo">
 					<p>Identifiant:</p> 

@@ -142,10 +142,12 @@ class Etudiant
 		if($research[0]['cn'][0] == ""){
 			$r=ldap_add($ldap_con,"cn=".$this->pseudo.",cn=UNUM-group,ou=autentification_G,cn=admin,dc=authentification,dc=com", $entry);
 			ldap_close($ldap_con);
-			header('Location:'.WEBROOT.'Inscription/index');
+			// header('Location:'.WEBROOT.'Inscription/index');
+			return true;
 		}
 		else{
-			header('Location:'.WEBROOT.'Inscription/index');
+			return false;
+			// header('Location:'.WEBROOT.'Inscription/index');
 		}
 		
 		// Ajout des données dans l'annuaire

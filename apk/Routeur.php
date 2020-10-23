@@ -4,27 +4,27 @@ class Routeur extends Model{
 	//lecture des utilisateur connecté a partir de mysql
     function __construct()
     {
+		parent::__construct();
+		$this->table="connected";
+		try {
+			//$conn = new PDO("mysql:host=localhost;dbname=portailcaptif", 'admin', 'admin#portal');
+			//$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$query="SELECT * FROM connected";
+			$stmt = $this->conn->query($query);
+			$conteur=0;
+			while ($donnee= $stmt->fetch()){
+				$this->student[$conteur]= new Etudiant($donnee['pseudo']);
+				$this->student[$conteur]->mac=$donnee['mac'];
+				$this->student[$conteur]->ip=$donnee['ip'];
+				$this->student[$conteur]->time=$donnee['heure'];
+				$conteur++;
+			}
 
-			$this->table="connected";
-    		try {
-					//$conn = new PDO("mysql:host=localhost;dbname=portailcaptif", 'admin', 'admin#portal');
-				    //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-					$query="SELECT * FROM connected";
-					$stmt = $this->conn->query($query);
-					$conteur=0;
-					while ($donnee= $stmt->fetch()){
-						$this->student[$conteur]= new Etudiant($donnee['pseudo']);
-						$this->student[$conteur]->mac=$donnee['mac'];
-						$this->student[$conteur]->ip=$donnee['ip'];
-						$this->student[$conteur]->time=$donnee['heure'];
-						$conteur++;
-					}
-		
-				}
-					catch (Exception $e)
-				{		
-		   			 echo "Connection failed: " . $e->getMessage();
-				}
+			}
+				catch (Exception $e)
+			{		
+					echo "Connection failed: " . $e->getMessage();
+			}
 	}
 	//affichage projet antérieur
     public function display()

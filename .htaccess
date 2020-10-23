@@ -1,6 +1,2 @@
-<<<<<<< HEAD
 RewriteEngine on
-=======
-RewriteEngine on
->>>>>>> 2f0f910810323ad3b5ee83276c8cf656b00ac9c7
 RewriteRule ^([a-zA-Z0-9\-\_\/]*)$ index.php?p=$1
