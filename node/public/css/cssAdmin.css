@@ -1,0 +1,453 @@
+html {
+  font-family: sans-serif;
+}
+body {
+  margin: 0;
+}
+h3{
+  text-align: center;
+  margin-top:3%;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+}
+
+.center
+{
+  margin:5% 12%;
+ 
+}
+header
+{
+  display:block;
+  height: 100%;
+  text-align: center; background: url('fond.jpg');
+  padding-top: 2%;
+  padding-bottom: 7%; 
+  margin-left: 0.7%;
+  margin-right: 0.7%;
+}
+.navFixe
+{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index:10;
+
+}
+
+.conteneur {
+  padding-right: 0.7%;
+  padding-left: 0.7%; 
+  margin-right: auto;
+  margin-left: auto;
+}
+
+a{
+  background-color: transparent;
+  text-decoration: none;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e7e7e7;
+  background-color: #cfcdcd; 
+
+  box-shadow: -4px 3px 18px -4px #000 ;
+}
+li button
+{
+  float:left;
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  border:none;
+}
+li button:hover
+{
+  background-color: rgb(235, 235, 235);
+  color: #008CBA;
+  box-shadow: -4px 3px 18px -4px #000 ;
+}
+#delete{
+  
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  border-width: 0.5px;
+}
+
+#delete:hover{
+  background-color: rgb(235, 235, 235);
+  color: #008CBA;
+  box-shadow:  #000 ;
+  cursor: pointer;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-right:solid white 2px;
+}
+
+li a:hover{
+  background-color: rgb(233, 233, 233);
+  color: #008CBA;
+}
+
+td input
+{
+  display: block;
+  color: none;
+  text-align: center;
+  padding: 3% 32%;
+  text-decoration: none;
+  border:none;
+  
+}
+td input:hover
+{
+  background-color: rgb(235, 235, 235);
+  color: #008CBA;
+}
+
+.droite
+{
+  float: right;
+
+}
+.navText
+{
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.defile
+{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+blockquote{
+  font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+  padding: 10px 20px;
+  margin: 0 0 20px;
+  font-size: 17.5px;
+  border-left: 5px solid #008CBA;
+}
+footer
+{
+  width:100%;
+}
+.footer1
+{
+  display: block;
+  font-size: 80%;
+  line-height: 1.42857143;
+  color: #777777;
+}
+.ligne{
+  margin:0 auto ;
+    width: 100%;
+}
+@media screen and (min-width: 818px){
+
+
+    .clear{
+      clear:left;
+    }
+
+    .description{
+      float:left;
+      width: 58.333333%;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px; 
+      padding: 7% 2%
+    }
+    .formulaire{
+      float:left;
+      margin-top: 1%;
+      width: 30.5%;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+    .edit{
+      position: fixed;
+      float:left;
+      margin-top: 1%;
+      width: 24%;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+    .editable{
+      float:left;
+      margin-top: 1%;
+      width: 70.5%;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+    .col2{
+      float:left;
+      margin-top: 1%;
+      width: 44%;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+  }
+  
+  @media screen and (max-width: 480px){
+  
+    .clear{
+      clear:left;
+    }
+    
+    .description{
+      width: 100%;
+      padding: 7% 2%;
+      margin-bottom: 20px;
+      float:left;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+    .formulaire{
+      float:left;
+      width: 100%;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }	
+    .editable{
+      float:left;
+      width: 100%;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }	
+    .edit{
+      position: fixed;
+      float:left;
+      width: 100%;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }	
+    .col2{
+      float:left;
+      width: 100%;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }	
+  }
+  @media screen and (min-width: 480px) and (max-width: 818px){
+  
+    .clear{
+      clear:left;
+    }
+    .description{
+      float:left;
+      width: 58.333333%;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+      padding: 7% 2%
+    }
+    .formulaire{
+      float:left;
+      margin-top: 1%;
+      width: 30.5%;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+    .edit{
+      position: fixed;
+      float:left;
+      margin-top: 1%;
+      width: 100%;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }	
+    .editable{
+      float:left;
+      margin-top: 1%;
+      width: 100%;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+    .col2{
+      float:left;
+      margin-top: 1%;
+      width: 44%;
+      margin-bottom: 20px;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+  }
+  .fond
+  {
+    padding-top: 50px;
+    padding-bottom:50px;
+    margin-bottom:30px;
+    color:inherit;
+    background-color: rgb(233, 233, 233);
+    box-shadow: -4px 3px 18px -4px #000 ;
+  }
+  .button {
+    background-color: rgb(255, 255, 255); /* Green */
+    border: solid black 1px;
+    color: rgb(0, 0, 0);
+    padding: 2% 5%;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  .button1 {
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+  }
+  
+  .button1:hover {
+    background-color: #555555;
+    color: white;
+  }
+  .button2 {
+    background-color: white; 
+    color: #008CBA; 
+    border: 2px solid #008CBA;
+  }
+  
+  .button2:hover {
+    background-color: #008CBA;
+    color: white;
+  }
+  .form{
+    padding: 3% 5%;
+    padding-bottom: 7%;
+  }
+  legend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: inherit;
+    color: #333333;
+    border: 0;
+    text-align: center;
+    border-bottom: 2px solid #fafafa;
+    font-size: 175%;
+  }
+  label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  input[type="texte"],input[type="text"],input[type="email"],input[type="password"]{
+    padding: 2% 2%;border-color: #008CBA; border-radius: 8px;width: 95%;
+  }
+
+  .jumbo
+  { 
+    
+    padding-top:2%;
+    padding-bottom:2%;
+    padding-left: 2%;
+    padding-right: 2%;  
+    margin-bottom: 2%;
+    height: 100%;
+    color:inherit;
+    box-shadow:-4px 3px 18px -4px #000 ; 
+    background-color: rgb(235, 235, 235);
+  }
+  
+table.customTable {
+  width: 100%;
+  background-color: #F2E8FF;
+  border-collapse: collapse;
+  border-width: 2px;
+  border-color: #7EA8F8;
+  border-style: solid;
+  color: #000000;
+}
+
+table.customTable td, table.customTable th {
+  border-width: 2px;
+  border-color: #7EA8F8;
+  border-style: solid;
+  padding: 5px;
+}
+
+table.customTable thead {
+  background-color: #7EA8F8;
+}
+
+.titre
+{
+  font-family: Georgia, DejaVu Serif, Norasi, serif;
+  border-bottom:solid rgb(219, 234, 255) 2px;
+  padding-left: 5%;
+}
+.alert
+{
+   text-align: center;
+  color:rgb(255, 107, 107);
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-bottom: 4%;
+}

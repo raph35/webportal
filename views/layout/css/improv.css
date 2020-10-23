@@ -1,0 +1,75 @@
+@media screen and (min-width: 818px){
+
+
+.clear{
+  clear:left;
+}
+.description{
+  float:left;
+  width: 58.333333%;
+  margin-bottom: 20px;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px; 
+}
+.formulaire{
+  float:left;
+  width: 33.3333333%;
+  margin-bottom: 20px;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+}
+
+@media screen and (max-width: 480px){
+
+.clear{
+  clear:left;
+}
+
+.description{
+  width: 100%;
+  margin-bottom: 20px;
+  float:left;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.formulaire{
+  float:left;
+  width: 100%;
+  margin-bottom: 20px;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}	
+}
+@media screen and (min-width: 480px) and (max-width: 818px){
+
+.clear{
+  clear:left;
+}
+.description{
+  float:left;
+  width: 58.333333%;
+  margin-bottom: 20px;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.formulaire{
+  float:left;
+  width: 33.3333333%;
+  margin-bottom: 20px;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}	
+}

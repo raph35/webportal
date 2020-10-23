@@ -1,0 +1,109 @@
+
+body{
+	margin: 0;
+	padding: 0;
+	background: url(loginFond.jpg);
+	background-size: cover;
+	background-position: center;
+	font-family: Roboto, sans-serif;
+}
+
+.loginField{
+	padding: 4% 1%;
+	width: 320px;
+	height: 420px;
+	background:  #140d5b;
+	color: #fff;
+	top: 50%;
+	right: 50%;
+	position: absolute;
+	transform: translate(50%,-50%);
+	box-sizing: border-box;
+}
+
+.univLogo{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	position: absolute;
+	top: -12%;
+	left:34%;
+}
+h1{
+	margin: 10px 0;
+	padding: 0 0 20px;
+	text-align: center;
+	font-size: 22px;
+}
+.loginField p{
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+}
+
+.loginField input{
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.loginField input[type="text"], input[type="password"]{
+	border: none;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	outline: none;
+	height: 40px;
+	color: #fff;
+	font-size: 16px;
+}
+
+.loginField button[type="submit"]{
+	width: 100%;
+	margin-top: 20px;
+	border: none;
+	outline: none;
+	height: 40px;
+	background: #B5392B;
+	color: #000;
+	font-size: 18px;
+	border-radius: 20px;
+}
+
+.loginField button[type="submit"]:hover{
+	cursor: pointer;
+	background: #B52919;
+	color: #fff;
+}
+
+@media (min-width: 600px) and (max-width: 966px) {
+	
+    .loginField {
+        padding: 6% 2%;
+		width: 390px;
+		height: 100%;
+		top: 0;
+		right: 0;
+		transform: translate(0,0);
+    }
+
+    .univLogo{
+		top: 10px;
+		left:38%;
+	}
+
+	h1{
+		margin: 5% 0;
+		padding: 100px 0 20px;
+	}	
+}
+
+@media (max-width: 600px) {
+    .loginField {
+        padding: 10% 3%;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		right: 0;
+		transform: translate(0,0);
+    }
+
+}
