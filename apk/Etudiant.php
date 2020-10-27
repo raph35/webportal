@@ -98,7 +98,8 @@ class Etudiant
                 }
                 else
                 {
-					header("Location:".WEBROOT."Acceuil/index");
+					return "refused";
+					// header("Location:".WEBROOT."Acceuil/index");
       
                 }
             }

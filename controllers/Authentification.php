@@ -40,7 +40,7 @@
                 echo $request;
                 $string_return = shell_exec("sudo /usr/local/lib/captiveportal/./addUser.sh " . $etudiant->mac);
                 $confirm="<script>";
-                $confirm.="alert('Bienvenu');document.location.href='".$etudiant->url."';";
+                $confirm.="alert('Bienvenue');document.location.href='".$etudiant->url."';";
                 $confirm.="\n</script>";
                 echo $confirm;
                 //header("Location:$etudiant->url");
@@ -57,6 +57,9 @@
 				session_start();
 				$_SESSION['inscription']=true;
 				header('Location:'.WEBROOT.'Inscription/index');
+            }
+            if($this->result === "refused"){
+                // $this->render("");
             }
         }
     }
