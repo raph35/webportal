@@ -105,12 +105,14 @@ class Etudiant
             }
             else
             {
-				header("Location:".WEBROOT."Acceuil/index");
+				//header("Location:".WEBROOT."Acceuil/index");
+				return "refused";
 			}
         }
         else{
-			echo "Invalid user/pass or other errors!";
-			header("Location:".WEBROOT."Acceuil/index");
+			// echo "Invalid user/pass or other errors!";
+			// header("Location:".WEBROOT."Acceuil/index");
+			return "refused";
 
         }
         return "";

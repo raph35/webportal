@@ -1,5 +1,5 @@
 <?php
-    class Authentification{
+    class Authentification extends Controller{
         //nodeJS
         
         public $nodeServer=NODEIP;
@@ -50,7 +50,7 @@
                 $routeur->addStudent($etudiant);
 				session_start();
 				$_SESSION['root']=true;
-				header('Location:'.WEBROOT.'Admin/index');
+				header('Location:'.$this->nodeServer.':'.$this->portNode.'Admin/index');
             }
             if($this->result=="inscription")
             {
@@ -59,7 +59,9 @@
 				header('Location:'.WEBROOT.'Inscription/index');
             }
             if($this->result === "refused"){
-                // $this->render("");
+                $error = "Erreur, étudiant " . $_POST['pseudo'] . " non authentifié";
+                $this->set(compact('error'));
+                $this->render('index');
             }
         }
     }
