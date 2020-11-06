@@ -11,7 +11,7 @@ body{
 .loginField{
 	padding: 4% 1%;
 	width: 320px;
-	height: 420px;
+	height: 500px;
 	background:  #140d5b;
 	color: #fff;
 	top: 50%;
@@ -74,6 +74,12 @@ h1{
 	color: #fff;
 }
 
+.loginField button[type="submit"]:disabled{
+	cursor: default;
+	background: #88838385;
+	color: #000;
+}
+
 .alert{
 	box-sizing: border-box;
 	width: 100%;
@@ -91,6 +97,12 @@ h1{
 .succes{
 	border: solid 1px #035a00;
 	background-color: rgba(27, 168, 17, 0.281);
+}
+
+div .mdpError{
+	color: #b41f0e;
+	font-style: italic;
+	font-size: small;
 }
 
 @media (min-width: 600px) and (max-width: 966px) {

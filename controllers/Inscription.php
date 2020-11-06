@@ -17,10 +17,10 @@ class Inscription extends Controller
             $etudiant=new Etudiant($_POST['pseudo'],$_POST['mdp']);
             $retour = $etudiant->inscription();
             if($retour){
-                $succes =  "Succes, étudiant ". $_POST['pseudo'] . " ajouté";
+                $succes =  "Succès, étudiant ". $_POST['pseudo'] . " ajouté";
                 $this->set(compact('succes'));
             } else {
-                $error = "Error, étudiant " . $_POST['pseudo'] . " non ajouté";
+                $error = "Erreur, identifiant " . $_POST['pseudo'] . " existant";
                 $this->set(compact('error'));
             }
             $this->render('index');

@@ -7,12 +7,14 @@
     <div class="wrap-login100">
         <?php echo  "<form class='login100-form' method='post' action='".WEBROOT."Authentification/index'>";?>
             <span class="login100-form-title">
-						Authentifiez vous!!!
-					</span>
+                Authentifiez vous!!!
+            </span>
 
-
+			<?php if(isset($error)):?>
+				<div class="alert error"><?=$error??"";?></div>
+			<?php endif;?>
             <div class="wrap-input100 validate-input">
-                <input class="input100" type="text" name="pseudo" placeholder="Pseudo" required="required">
+                <input class="input100" type="text" name="pseudo" placeholder="Pseudo">
             </div>
 
 

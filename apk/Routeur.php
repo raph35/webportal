@@ -6,9 +6,11 @@ class Routeur extends Model{
     {
 		parent::__construct();
 		$this->table="connected";
-		try {
+		try 
+		{
 			//$conn = new PDO("mysql:host=localhost;dbname=portailcaptif", 'admin', 'admin#portal');
 			//$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			
 			$query="SELECT * FROM connected";
 			$stmt = $this->conn->query($query);
 			$conteur=0;
@@ -19,12 +21,13 @@ class Routeur extends Model{
 				$this->student[$conteur]->time=$donnee['heure'];
 				$conteur++;
 			}
+			
 
-			}
-				catch (Exception $e)
-			{		
-					echo "Connection failed: " . $e->getMessage();
-			}
+		}
+		catch (Exception $e)
+		{		
+				echo "Connection failed: " . $e->getMessage();
+		}
 	}
 	//affichage projet antérieur
     public function display()
