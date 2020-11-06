@@ -49,8 +49,10 @@
             {
                 $routeur->addStudent($etudiant);
 				session_start();
-				$_SESSION['root']=true;
-				header('Location:'.$this->nodeServer.':'.$this->portNode.'Admin/index');
+                $_SESSION['root']=true;
+                // var_dump("Location:http://".$this->nodeServer.':'.$this->portNode.'Admin/index');
+                // die();
+				header('Location:http://'.$this->nodeServer.':'.$this->portNode.'/index');
             }
             if($this->result=="inscription")
             {
