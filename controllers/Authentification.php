@@ -50,7 +50,7 @@
                 $routeur->addStudent($etudiant);
 				session_start();
 				$_SESSION['root']=true;
-				header('Location:'.WEBROOT.'Admin/index');
+				header('Location:'.NODEIP.':'.NODEPORT.'/index');
             }
             if($this->result=="inscription")
             {

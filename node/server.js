@@ -7,7 +7,22 @@ const shell = require('shelljs');
 
 app.use(express.static(path.join(__dirname, 'public', 'css')));
 
-//-------------------------ajout d'un utilisateur---------------------///
+//-----------------namespace socket--------------------------//
+var controlIo = io.of('/control');
+var indexIo = io.of('/index');
+
+//-------------------------ajout du controlle de l'utilisateur----------------------//
+var controlIo = io.of('/control');
+controlIo.on('connection', function() {
+    console.log('test')
+})
+app.get("/control", function(req, res) {
+    res.sendFile(__dirname + '/control.html');
+
+
+})
+
+//-------------------------ajout d'un utilisateur---------------------//
 app.get("/index", function(req, res) {
     if (typeof req.param('pseudo') != 'undefined' && typeof req.param('mac') != 'undefined' && typeof req.param('ip') != 'undefined') {
         var pseudo = req.param('pseudo');
@@ -16,7 +31,7 @@ app.get("/index", function(req, res) {
         var date = req.param('date');
         data = [pseudo, mac, ip, date];
         console.log(data);
-        io.emit('connected', data);
+        indexIo.emit('connected', data);
     }
     res.sendFile(__dirname + '/index.html');
 })
@@ -27,11 +42,11 @@ var delUser = function deleteUser(toDel) {
     db.connect(function(err) {
         db.query("DELETE FROM connected WHERE mac = '" + toDel + "'");
     });
-    io.emit('deconnex', toDel);
+    indexIo.emit('deconnex', toDel);
     shell.exec("sudo /home/raph35/Documents/Projets/findetudel3misa/gitHub/captivePortal/script_bash/./removeUser.sh " + toDel);
 }
 
-io.on('connection', function(socket) {
+indexIo.on('connection', function(socket) {
     //------génération des utilisateur en ligne via mysql------//
     console.log('user connected');
     data = getUser(socket);
@@ -57,8 +72,8 @@ function dbconnect() {
     var mysql = require('mysql');
     var connection = mysql.createConnection({
         host: 'localhost',
-        user: 'admin',
-        password: 'admin#portal',
+        user: 'root',
+        password: '',
         database: 'portailcaptif'
     });
 
