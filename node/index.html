@@ -20,6 +20,7 @@
                 td[i] = document.createElement('td');
                 if (i < 4) {
                     td[i].innerHTML = data[i];
+
                 }
                 if (i == 4) {
                     td[i].innerHTML = 'Supprimer';
@@ -61,7 +62,10 @@
         }
         socket.on('select', receiveAll);
 
+        //suppression user
         var delUser = function(data) {
+            var time = getElementById(data).children[3].innerHTML;
+            var bigData = [data, time]
             socket.emit('delete', data);
             document.getElementById(data).remove();
         }
@@ -88,7 +92,7 @@
                             Ip
                         </th>
                         <th style='border-width:1px;border-style:solid; width:20%;'>
-                            Début de connection
+                            Temps restant
                         </th>
                         <th style='border-width:1px;border-style:solid; width:20%;'>
                             Option de suppression

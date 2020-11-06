@@ -37,13 +37,24 @@ app.get("/index", function(req, res) {
 })
 
 //fonction suppression utilisateur
+/*var delUser = function deleteUser(toDel) {
+        var db = dbconnect();
+        db.connect(function(err) {
+            db.query("DELETE FROM connected WHERE mac = '" + toDel + "'");
+        });
+        indexIo.emit('deconnex', toDel);
+        shell.exec("sudo /home/raph35/Documents/Projets/findetudel3misa/gitHub/captivePortal/script_bash/./removeUser.sh " + toDel);
+    }
+    */
+//deconnection d'un utilisateur
 var delUser = function deleteUser(toDel) {
     var db = dbconnect();
     db.connect(function(err) {
-        db.query("DELETE FROM connected WHERE mac = '" + toDel + "'");
+        //db.query("UPDATE $this->table SET heure='" + toDel[1] + "',isConnected='0' WHERE mac='" + toDel[0] + "'");
+        db.query("UPDATE $this->table SET isConnected='0' WHERE mac='" + toDel[0] + "'");
     });
-    indexIo.emit('deconnex', toDel);
-    shell.exec("sudo /home/raph35/Documents/Projets/findetudel3misa/gitHub/captivePortal/script_bash/./removeUser.sh " + toDel);
+    indexIo.emit('deconnex', toDel[0]);
+    shell.exec("sudo /home/raph35/Documents/Projets/findetudel3misa/gitHub/captivePortal/script_bash/./removeUser.sh " + toDel[0]);
 }
 
 indexIo.on('connection', function(socket) {
@@ -98,7 +109,7 @@ function getUser(socket) {
     var data;
     db.connect(function(err) {
         if (err) throw err;
-        db.query('SELECT * FROM connected', (err, result, field) => {
+        db.query("SELECT * FROM connected WHERE isConnected=1", (err, result, field) => {
             if (err) throw err;
             //console.log('>> results: ', result );
             var string = JSON.stringify(result);

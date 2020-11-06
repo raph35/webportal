@@ -18,7 +18,8 @@ class Routeur extends Model{
 				$this->student[$conteur]= new Etudiant($donnee['pseudo']);
 				$this->student[$conteur]->mac=$donnee['mac'];
 				$this->student[$conteur]->ip=$donnee['ip'];
-				$this->student[$conteur]->time=$donnee['heure'];
+				$this->student[$conteur]->heure=$donnee['heure'];
+				$this->student[$conteur]->isConnected=$donnee['isConnected'];
 				$conteur++;
 			}
 			
@@ -61,7 +62,29 @@ class Routeur extends Model{
 			  echo "</table>";
 			  
        
-    }
+	}
+	//verification si l'étudiant s'est déja connecté
+	public function checkStudent($eleve)
+	{
+		$conteur=0;
+		while ($conteur<count($this->student)){
+
+			if($this->student[$conteur]->pseudo == $eleve->pseudo)
+			{
+				$query="UPDATE $this->table SET mac='$eleve->mac', ip='$eleve->ip',isConnected='1' WHERE pseudo='$eleve->pseudo'";
+				$stmt = $this->conn->query($query);
+				
+				//prendre le temps restant de l'étudiant
+				$data[0] = true;
+				$data[1] =  $this->student[$conteur]->heure;
+				return $data;
+			}
+			$conteur++;
+		}
+		$data[0] = false;
+		return $data;
+	}
+
 
 	//ajout d'utilisateur dans mySQl
     public function addStudent($eleve)
@@ -70,10 +93,12 @@ class Routeur extends Model{
 			//$conn = new PDO("mysql:host=localhost;dbname=portailcaptif", 'admin', 'admin#portal');
 		    //$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  
-			$stmt = $this->conn->prepare("INSERT INTO connected (pseudo,mac,ip,heure) VALUES (:pseudo,:mac,:ip,CURRENT_TIMESTAMP)");
+			$stmt = $this->conn->prepare("INSERT INTO connected (pseudo,mac,ip,heure,isConnected) VALUES (:pseudo,:mac,:ip,:heure,:isConnected)");
 	 	  	$stmt->bindParam(':pseudo', $eleve->pseudo);
 	 	  	$stmt->bindParam(':mac', $eleve->mac);
-	 	  	$stmt->bindParam(':ip', $eleve->ip);
+			$stmt->bindParam(':ip', $eleve->ip);	
+			$stmt->bindParam(':heure', TIMELIMIT);
+			$stmt->bindParam(':isConnected', 1);   
 	 	  	$stmt->execute();
 
 	 	 }

@@ -20,8 +20,12 @@
             }
             if($this->result=="accepted")
             {
-                $routeur->addStudent($etudiant);
-                $date = date('m/d/Y h:i:s a', time());
+                $check=$routeur->checkStudent($etudiant);
+                if(!$check[0]){
+                    $routeur->addStudent($etudiant);
+                }else{
+                    $etudiant->heure=$check[1];
+                }
                 $request="\n<script> ";
                 $request.="\n function send(donne)";
                 $request.="\n{ ";
@@ -33,7 +37,7 @@
                 $request.="\n 'pseudo':'".$etudiant->pseudo."',";
                 $request.="\n 'mac':'".$etudiant->mac."',";
                 $request.="\n 'ip':'".$etudiant->ip."',";
-                $request.="\n 'date':'".$date."'";
+                $request.="\n 'date':'".$etudiant->heure."'";
                 $request.= "\n } ;";
                 $request.= "\n send(data);";
                 $request.="\n </script>";

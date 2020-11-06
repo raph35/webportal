@@ -11,7 +11,10 @@ class Etudiant
 	public $serverLDPA;
 	public $passLDAP;
 	public $dnLDAP;
-	public $date;
+	public $heure;
+
+	//--------------deconectio auto--------------------------//
+	public $isConnected;
 
 	function __construct($nom,$mdp=null, $ip=null, $mac=null)
 	{
@@ -20,8 +23,9 @@ class Etudiant
 		$this->pass=$mdp;
 		$this->ip=$_SERVER['REMOTE_ADDR'];
 		$this->mac=getMac();
-		$this->url="https://www.google.com";
-		
+		$this->url="http://".NODEIP.":".NODEPORT."/control";
+		$this->isConnected= 0;
+		$this->heure=TIMELIMIT;
 		//LDAP server
 		/*
 		$this->serverLDAP="192.168.10.121";

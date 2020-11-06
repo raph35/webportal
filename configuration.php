@@ -14,5 +14,9 @@
     define('LDAPPASS','123456');
     define('LDAPENTRI','cn=admin,dc=authentification,dc=com');
 
+    //acounting
+    
+    define('TIMELIMIT','1:0:0');
+
 
 ?>
