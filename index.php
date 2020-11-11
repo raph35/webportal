@@ -25,7 +25,8 @@
     if($controller=="" || ($controller != "Admin" && $controller != "Acceuil" && $controller != "Authentification" && $controller != "Inscription"))
     //if($controller=="")
     {
-        header('Location:'.WEBROOT.'Acceuil/index');
+        // header('Location:'.WEBROOT.'Acceuil/index');
+        header('Location:http://10.42.0.1/Acceuil/index');
     }
     $action= isset($params[1]) ? $params[1] : 'index';
 
