@@ -4,15 +4,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="controlStyle.css">
     <title>Control</title>
 </head>
 
 <body>
+
+
     <script src='socket.io/socket.io.js'></script>
     <script>
         const socket = io('/control');
+
+        var displayChrono = function(time) {
+            heure.innerHTML = conversion_seconde_heure(time);
+        }
+        var displayStudent = function(data) {
+            pseudo.innerHTML = data[0];
+            mac.innerHTML = data[1];
+            ip.innerHTML = data[2];
+        }
+        var sendServer = function(session) {
+                socket.emit('createUser', session)
+            }
+            //----------affichage du chrono
+        socket.on('chrono', displayChrono)
+            //affichage de l'etudiant
+        socket.on('about', displayStudent)
+
+        //reception de l'utilisateur et envoide son propos au serveur
+        //socket.on('session', sendServer)
+        //suppresion par l'administrateur
+        socket.on('delete', function(adrrmac) {
+            if (mac.innerHTML == adrrmac) {
+                alert('Vous avez été déconnecté par l\'administrateur');
+                socket.disconnect();
+            }
+        })
+
+        //bouton déconnexion
+        var disconect = function() {
+                socket.emit('deconnection', mac.innerHTML)
+
+            }
+            //temps écoulé
+        socket.on('noTime', function(msg) {
+            alert(msg);
+        })
     </script>
-    <h1> test</h1>
+    <div class="field">
+        <h1 id="pseudo"></h1>
+        <br>
+        <h3 id="heure"></h3>
+        <p id="mac" style="display: none;"></p>
+        <p id="ip" style="display: none;"></p>
+
+        <button onclick='disconect()'> Déconnexion</button>
+    </div>
+
 </body>
 
 </html>
+
+<!--                                chronometre                               -->
+
+<script type="text/javascript">
+    function conversion_seconde_heure(time) {
+        var reste = time;
+        var result = '';
+
+        var nbJours = Math.floor(reste / (3600 * 24));
+        reste -= nbJours * 24 * 3600;
+
+        var nbHours = Math.floor(reste / 3600);
+        reste -= nbHours * 3600;
+
+        var nbMinutes = Math.floor(reste / 60);
+        reste -= nbMinutes * 60;
+
+        var nbSeconds = reste;
+
+        if (nbJours > 0)
+            result = result + nbJours + 'j ';
+
+        if (nbHours > 0)
+            result = result + nbHours + 'h ';
+
+        if (nbMinutes > 0)
+            result = result + nbMinutes + 'min ';
+
+        if (nbSeconds > 0)
+            result = result + nbSeconds + 's ';
+
+        return result;
+    }
+</script>

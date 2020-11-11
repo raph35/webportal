@@ -14,21 +14,38 @@
         var receiveData = function(data) {
             var td = Array(5);
             var tr = document.createElement('tr');
-            tr.setAttribute('id', data[1]);
-            document.getElementById('connected').appendChild(tr);
-            for (i = 0; i < 5; i++) {
-                td[i] = document.createElement('td');
-                if (i < 4) {
-                    td[i].innerHTML = data[i];
+            if (document.getElementById(data[1]) == null) {
+                tr.setAttribute('id', data[1]);
+                document.getElementById('connected').appendChild(tr);
+                for (i = 0; i < 5; i++) {
+                    td[i] = document.createElement('td');
+                    if (i < 4) {
+                        if (i == 3) {
+                            td[i].innerHTML = conversion_seconde_heure(data[i]);
+                        } else {
+                            td[i].innerHTML = data[i];
+                        }
+                    }
+                    if (i == 4) {
+                        td[i].innerHTML = 'Supprimer';
+                        td[i].setAttribute('id', 'delete');
+                        td[i].setAttribute('onclick', "delUser('" + data[1] + "')");
+                    }
+                    document.getElementById(data[1]).appendChild(td[i]);
 
                 }
-                if (i == 4) {
-                    td[i].innerHTML = 'Supprimer';
-                    td[i].setAttribute('id', 'delete');
-                    td[i].setAttribute('onclick', "delUser('" + data[1] + "')");
-                }
-                document.getElementById(data[1]).appendChild(td[i]);
+            } else {
+                var td = Array(4);
+                var item = Array(4);
+                for (i = 0; i < 4; i++) {
+                    if (i == 3) {
+                        data[i] = conversion_seconde_heure(data[i])
+                    }
+                    td[i] = document.createTextNode(data[i]);
+                    item[i] = document.getElementById(data[1]).childNodes[i];
+                    item[i].replaceChild(td[i], item[i].childNodes[0]);
 
+                }
             }
         }
         socket.on('connected', receiveData);
@@ -49,7 +66,11 @@
                 for (j = 0; j < 5; j++) {
                     td[j] = document.createElement('td');
                     if (j < 4) {
-                        td[j].innerHTML = data1[j];
+                        if (j == 3) {
+                            td[j].innerHTML = conversion_seconde_heure(data1[j]);
+                        } else {
+                            td[j].innerHTML = data1[j];
+                        }
                     }
                     if (j == 4) {
                         td[j].innerHTML = 'Supprimer';
@@ -64,8 +85,6 @@
 
         //suppression user
         var delUser = function(data) {
-            var time = getElementById(data).children[3].innerHTML;
-            var bigData = [data, time]
             socket.emit('delete', data);
             document.getElementById(data).remove();
         }
@@ -106,3 +125,37 @@
 </body>
 
 </html>
+
+<!--                                chronometre                               -->
+
+<script type="text/javascript">
+    function conversion_seconde_heure(time) {
+        var reste = time;
+        var result = '';
+
+        var nbJours = Math.floor(reste / (3600 * 24));
+        reste -= nbJours * 24 * 3600;
+
+        var nbHours = Math.floor(reste / 3600);
+        reste -= nbHours * 3600;
+
+        var nbMinutes = Math.floor(reste / 60);
+        reste -= nbMinutes * 60;
+
+        var nbSeconds = reste;
+
+        if (nbJours > 0)
+            result = result + nbJours + 'j ';
+
+        if (nbHours > 0)
+            result = result + nbHours + 'h ';
+
+        if (nbMinutes > 0)
+            result = result + nbMinutes + 'min ';
+
+        if (nbSeconds > 0)
+            result = result + nbSeconds + 's ';
+
+        return result;
+    }
+</script>

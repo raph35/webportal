@@ -26,25 +26,35 @@
                 }else{
                     $etudiant->heure=$check[1];
                 }
-                $request="\n<script> ";
-                $request.="\n function send(donne)";
-                $request.="\n{ ";
-                $request.="\n var xhr = new XMLHttpRequest();";
-                $request.="\n xhr.open('GET', 'http://".$this->nodeServer.":".$this->portNode."/index?pseudo='+donne.pseudo+'&mac='+donne.mac+'&ip='+donne.ip+'&date='+donne.date, true);";
-                $request.="\n xhr.send();"; 
-                $request.="\n } ;";
-                $request.="\n var data={ ";
-                $request.="\n 'pseudo':'".$etudiant->pseudo."',";
-                $request.="\n 'mac':'".$etudiant->mac."',";
-                $request.="\n 'ip':'".$etudiant->ip."',";
-                $request.="\n 'date':'".$etudiant->heure."'";
-                $request.= "\n } ;";
-                $request.= "\n send(data);";
-                $request.="\n </script>";
+                // $request="\n<script> ";
+                // $request.="\n function send(donne)";
+                // $request.="\n{ ";
+                // $request.="\n var xhr = new XMLHttpRequest();";
+                // $request.="\n xhr.open('GET', 'http://".$this->nodeServer.":".$this->portNode."/index?pseudo='+donne.pseudo+'&mac='+donne.mac+'&ip='+donne.ip+'&heure='+donne.heure, true);";
+                // $request.="\n xhr.send();"; 
+                // $request.="\n } ;";
+                // $request.="\n var data={ ";
+                // $request.="\n 'pseudo':'".$etudiant->pseudo."',";
+                // $request.="\n 'mac':'".$etudiant->mac."',";
+                // $request.="\n 'ip':'".$etudiant->ip."',";
+                // $request.="\n 'heure':'".$etudiant->heure."'";
+                // $request.= "\n } ;";
+                // $request.= "\n send(data);";
+                // $request.="\n </script>";
+                // echo $request;
+                $request="
+                <form action='$etudiant->url' methode='post' id='sendUser' style='display:none'>
+                    <input type='hidden' name='token' value='03246'>
+                    <input type='text' name='pseudo' value='$etudiant->pseudo'>
+                    <input type='text' name='mac' value='$etudiant->mac'>
+                    <input type='text' name='ip' value='$etudiant->ip'>
+                    <input type='text' name='heure' value='$etudiant->heure'>
+                </form>
+                ";
                 echo $request;
                 $string_return = shell_exec("sudo /usr/local/lib/captiveportal/./addUser.sh " . $etudiant->mac);
                 $confirm="<script>";
-                $confirm.="alert('Bienvenue');document.location.href='".$etudiant->url."';";
+                $confirm.="alert('Bienvenue');sendUser.submit()";
                 $confirm.="\n</script>";
                 echo $confirm;
                 //header("Location:$etudiant->url");
@@ -52,9 +62,18 @@
             if($this->result=="root")
             {
                 $routeur->addStudent($etudiant);
-				session_start();
-				$_SESSION['root']=true;
-				header('Location:'.NODEIP.':'.NODEPORT.'/index');
+                //session_start();
+                $request="
+                <form action='".NODEIP.":".NODEPORT."/index' methode='post' id='sendRoot' style='display:none'>
+                    <input type='hidden' name='token' value='03246'>
+                </form>
+                ";
+                echo $request;
+                $confirm="<script>";
+                $confirm.="alert('Vous vous êtes connecté en tant que root');sendRoot.submit()";
+                $confirm.="\n</script>";
+                echo $confirm;
+				//header('Location:'.NODEIP.':'.NODEPORT.'/index');
             }
             if($this->result=="inscription")
             {
