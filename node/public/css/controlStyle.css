@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(255, 255, 255);
+    background-size: cover;
+    background-position: center;
+    font-family: Roboto, sans-serif;
+}
+
+.field {
+    padding: 2% 1%;
+    width: 600px;
+    height: 640px;
+    background: rgb(216, 243, 239);
+    color: rgba(21, 121, 160, 0.747);
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    margin: auto;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+h1 {
+    margin: 0px 0 20px;
+    text-align: center;
+}
+
+h3 {
+    padding: 200px 90px;
+    margin: 0;
+    text-align: center;
+    background: no-repeat center url("chrono.png");
+    background-size: 100%;
+    font-size: 35px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.field button {
+    margin-top: 20px;
+    padding: 0px 40px;
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #4759f8c4;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    border-radius: 20px;
+    margin: 4% 33%;
+}
+
+.field button:hover {
+    cursor: pointer;
+    background: #4759f8;
+    color: rgb(255, 255, 255);
+}
