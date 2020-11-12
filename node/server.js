@@ -19,6 +19,9 @@ var session = require('express-session')({
 var sharedsession = require("express-socket.io-session");
 //BodyParser
 var bodyParser = require("body-parser");
+const { send } = require('process');
+const { resolve } = require('path');
+const { rejects } = require('assert');
 
 //utilisation du midlware css
 app.use(express.static(path.join(__dirname, 'public', 'css')));
@@ -44,14 +47,20 @@ app.post("/control", function(req, res) {
         sess.pseudo = req.body.pseudo;
         sess.mac = req.body.mac;
         sess.ip = req.body.ip;
-        sess.heure = req.body.heure;
-        data = [sess.pseudo, sess.mac, sess.ip, sess.heure];
+        //sess.heure = req.body.heure;
+        getUserTime(sess.pseudo).then(function(results){
+            sess.heure=results
+            data = [sess.pseudo, sess.mac, sess.ip, sess.heure];
 
-        //emission dans la page admin
-        indexIo.emit('connected', data);
-        //controlIo.emit('session', sess);
-        console.log(data);
-        res.sendFile(__dirname + '/control.html');
+            //emission dans la page admin
+            indexIo.emit('connected', data);
+            //controlIo.emit('session', sess);
+            console.log(data);
+            res.sendFile(__dirname + '/control.html');
+        }).catch(function(err){
+            console.log('promise rejection error : '+err)
+        })
+        
     } else {
         res.redirect(301, 'http://10.42.0.1:81/');
     }
@@ -66,7 +75,9 @@ controlIo.on('connection', function(socket) {
         mac = socket.handshake.session.mac,
         ip = socket.handshake.session.ip,
         heure = socket.handshake.session.heure;
-
+        console.log('tonga any am user:'+heure);
+        //autorisation
+        shell.exec("sudo /usr/local/lib/captiveportal/./addUser.sh " + mac)
     data = [pseudo, mac, ip, heure];
     socket.emit('about', data)
 
@@ -113,6 +124,8 @@ controlIo.on('connection', function(socket) {
         console.log(time);
         delUser(mac, time);
         console.log('To update Mysql:' + pseudo);
+        socket.handshake.session.heure=time;
+        socket.handshake.session.save();
     })
 })
 
@@ -209,6 +222,20 @@ function insertUser() {
     db.query('INSERT INTO user SET pseudo=?, email=?, mdp=?', data, (err, user, field) => {
 
     });
+}
+
+function getUserTime(pseudo){
+    
+    return new Promise((resolve,reject)=>{
+        var db = dbconnect();
+        db.query("SELECT heure FROM connected WHERE pseudo= ?",[pseudo],(err,result)=>{
+            if(err){ reject(new Error(err)) }
+            else {
+                console.log(result[0].heure)
+                resolve(result[0].heure)
+            }
+        })
+    })
 }
 
 function getUser(socket) {

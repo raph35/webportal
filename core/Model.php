@@ -15,7 +15,6 @@
             // var_dump(APACHESERVER, BDNAME, SQLUSER, SQLPASS);
             // die();
             // mysql:host=localhost;dbname=portailcaptif", 'admin', 'admin#portal
-            echo "mysql:host=" . APACHESERVER . ";dbname=" . BDNAME;
             try {
                 $this->conn = new PDO("mysql:host=" . APACHESERVER . ";dbname=" . BDNAME , SQLUSER, SQLPASS);
                 // $this->conn = new \PDO("mysql:host=localhost;dbname=portailcaptif", 'admin', 'admin#portal');

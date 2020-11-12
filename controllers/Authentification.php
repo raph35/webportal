@@ -21,10 +21,46 @@
             if($this->result=="accepted")
             {
                 $check=$routeur->checkStudent($etudiant);
-         	       if(!$check[0]){
+         	    if(!$check[0]){
                     $routeur->addStudent($etudiant);
+                    $request="
+                <form action='$etudiant->url' method='post' id='sendUser' style='display:none'>
+                    <input type='hidden' name='token' value='03246'>
+                    <input type='text' name='pseudo' value='$etudiant->pseudo'>
+                    <input type='text' name='mac' value='$etudiant->mac'>
+                    <input type='text' name='ip' value='$etudiant->ip'>
+                    <input type='text' name='heure' value='$etudiant->heure'>
+                </form>
+                ";
+                echo $request;
+                //$string_return = shell_exec("sudo /usr/local/lib/captiveportal/./addUser.sh " . $etudiant->mac);
+                $confirm="<script>";
+                $confirm.="alert('Bienvenue');sendUser.submit()";
+                $confirm.="\n</script>";
+                echo $confirm;
                 }else{
-                    $etudiant->heure=$check[1];
+                    if($check[1]=='connected'){
+                        $error="Vous êtes déjà connecté sur un autre appareil";
+                        $this->set(compact('error'));
+                        $this->render('index');
+                    }else{
+                        $etudiant->heure=$check[1];
+                        $request="
+                        <form action='$etudiant->url' method='post' id='sendUser' style='display:none'>
+                            <input type='hidden' name='token' value='03246'>
+                            <input type='text' name='pseudo' value='$etudiant->pseudo'>
+                            <input type='text' name='mac' value='$etudiant->mac'>
+                            <input type='text' name='ip' value='$etudiant->ip'>
+                            <input type='text' name='heure' value='$etudiant->heure'>
+                        </form>
+                        ";
+                        echo $request;
+                        //$string_return = shell_exec("sudo /usr/local/lib/captiveportal/./addUser.sh " . $etudiant->mac);
+                        $confirm="<script>";
+                        $confirm.="alert('Bienvenue');sendUser.submit()";
+                        $confirm.="\n</script>";
+                        echo $confirm;
+                    }
                 }
                 // $request="\n<script> ";
                 // $request.="\n function send(donne)";
@@ -42,21 +78,7 @@
                 // $request.= "\n send(data);";
                 // $request.="\n </script>";
                 // echo $request;
-                $request="
-                <form action='$etudiant->url' method='post' id='sendUser' style='display:none'>
-                    <input type='hidden' name='token' value='03246'>
-                    <input type='text' name='pseudo' value='$etudiant->pseudo'>
-                    <input type='text' name='mac' value='$etudiant->mac'>
-                    <input type='text' name='ip' value='$etudiant->ip'>
-                    <input type='text' name='heure' value='$etudiant->heure'>
-                </form>
-                ";
-                echo $request;
-                $string_return = shell_exec("sudo /usr/local/lib/captiveportal/./addUser.sh " . $etudiant->mac);
-                $confirm="<script>";
-                $confirm.="alert('Bienvenue');sendUser.submit()";
-                $confirm.="\n</script>";
-                echo $confirm;
+                
                 //header("Location:$etudiant->url");
             }
             if($this->result=="root")

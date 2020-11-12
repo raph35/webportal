@@ -72,12 +72,19 @@ class Routeur extends Model{
 
 			if($this->student[$conteur]->pseudo == $eleve->pseudo)
 			{
-				$query="UPDATE $this->table SET mac='$eleve->mac', ip='$eleve->ip',isConnected='1' WHERE pseudo='$eleve->pseudo'";
-				$stmt = $this->conn->query($query);
-				
-				//prendre le temps restant de l'étudiant
-				$data[0] = true;
-				$data[1] =  $this->student[$conteur]->heure;
+				if($this->student[$conteur]->isConnected==1 || $this->student[$conteur]->isConnected=="1"){
+					$data[0]=true;
+					$data[1]="connected";
+				}
+				else{
+					$query="UPDATE $this->table SET mac='$eleve->mac', ip='$eleve->ip',isConnected='1' WHERE pseudo='$eleve->pseudo'";
+					$stmt = $this->conn->query($query);
+					
+					//prendre le temps restant de l'étudiant
+					$data[0] = true;
+					$data[1] =  $this->student[$conteur]->heure;
+					return $data;
+				}
 				return $data;
 			}
 			$conteur++;
