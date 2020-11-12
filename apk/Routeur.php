@@ -14,6 +14,7 @@ class Routeur extends Model{
 			$query="SELECT * FROM connected";
 			$stmt = $this->conn->query($query);
 			$conteur=0;
+			$this->student = array();
 			while ($donnee= $stmt->fetch()){
 				$this->student[$conteur]= new Etudiant($donnee['pseudo']);
 				$this->student[$conteur]->mac=$donnee['mac'];
@@ -82,6 +83,7 @@ class Routeur extends Model{
 			$conteur++;
 		}
 		$data[0] = false;
+		$data[1]= TIMELIMIT;
 		return $data;
 	}
 
@@ -97,8 +99,10 @@ class Routeur extends Model{
 	 	  	$stmt->bindParam(':pseudo', $eleve->pseudo);
 	 	  	$stmt->bindParam(':mac', $eleve->mac);
 			$stmt->bindParam(':ip', $eleve->ip);	
-			$stmt->bindParam(':heure', TIMELIMIT);
-			$stmt->bindParam(':isConnected', 1);   
+			$stmt->bindParam(':heure', $time,PDO::PARAM_INT);
+			$stmt->bindParam(':isConnected', $connect,PDO::PARAM_INT);   
+			$time=TIMELIMIT;
+			$connect=1;
 	 	  	$stmt->execute();
 
 	 	 }

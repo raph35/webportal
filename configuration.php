@@ -16,7 +16,7 @@
 
     //acounting
     
-    define('TIMELIMIT','3600');
+    define('TIMELIMIT',3600);
 
 
 ?>

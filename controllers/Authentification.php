@@ -21,7 +21,7 @@
             if($this->result=="accepted")
             {
                 $check=$routeur->checkStudent($etudiant);
-                if(!$check[0]){
+         	       if(!$check[0]){
                     $routeur->addStudent($etudiant);
                 }else{
                     $etudiant->heure=$check[1];
@@ -43,7 +43,7 @@
                 // $request.="\n </script>";
                 // echo $request;
                 $request="
-                <form action='$etudiant->url' methode='post' id='sendUser' style='display:none'>
+                <form action='$etudiant->url' method='post' id='sendUser' style='display:none'>
                     <input type='hidden' name='token' value='03246'>
                     <input type='text' name='pseudo' value='$etudiant->pseudo'>
                     <input type='text' name='mac' value='$etudiant->mac'>
@@ -61,10 +61,10 @@
             }
             if($this->result=="root")
             {
-                $routeur->addStudent($etudiant);
+                //$routeur->addStudent($etudiant);
                 //session_start();
                 $request="
-                <form action='".NODEIP.":".NODEPORT."/index' methode='post' id='sendRoot' style='display:none'>
+                <form action='http://".NODEIP.":".NODEPORT."/index' method='post' id='sendRoot' style='display:none'>
                     <input type='hidden' name='token' value='03246'>
                 </form>
                 ";

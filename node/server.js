@@ -37,7 +37,7 @@ controlIo.use(sharedsession(session, {
     autoSave: true
 }))
 
-app.get("/control", function(req, res) {
+app.post("/control", function(req, res) {
     const sess = req.session;
     //------------------------reception de l'utilisateur--------------------------------//
     if (typeof req.body.pseudo != 'undefined' && typeof req.body.mac != 'undefined' && typeof req.body.ip != 'undefined' && req.body.token == '03246') {
@@ -53,7 +53,7 @@ app.get("/control", function(req, res) {
         console.log(data);
         res.sendFile(__dirname + '/control.html');
     } else {
-        res.redirect(301, 'http://google.com');
+        res.redirect(301, 'http://10.42.0.1:81/');
     }
 })
 
@@ -111,14 +111,14 @@ controlIo.on('connection', function(socket) {
         clearTimeout(timeout);
         indexIo.emit('deconnex', mac);
         console.log(time);
-        console.log('To update Mysql:' + pseudo);
         delUser(mac, time);
+        console.log('To update Mysql:' + pseudo);
     })
 })
 
 
 //-------------------------ajout d'un utilisateur---------------------//
-app.get("/index", function(req, res) {
+app.post("/index", function(req, res) {
     /*if (typeof req.param('pseudo') != 'undefined' && typeof req.param('mac') != 'undefined' && typeof req.param('ip') != 'undefined') {
         var pseudo = req.param('pseudo');
         var mac = req.param('mac');
@@ -131,7 +131,7 @@ app.get("/index", function(req, res) {
     if (req.body.token == '03246')
         res.sendFile(__dirname + '/index.html');
     else {
-        res.redirect(301, 'http://google.com');
+        res.redirect(301, 'http://10.42.0.1:81/');
     }
 })
 
@@ -150,7 +150,11 @@ var delUser = function deleteUser(mac, time) {
     var db = dbconnect();
     db.connect(function(err) {
         //db.query("UPDATE $this->table SET heure='" + toDel[1] + "',isConnected='0' WHERE mac='" + toDel[0] + "'");
-        db.query("UPDATE connected SET isConnected='0',heure='" + time + "' WHERE mac='" + mac + "'");
+        db.query("UPDATE connected SET heure=" + time + ",isConnected=0 WHERE mac='" + mac + "';",function(err,rows){
+            if(err){
+                console.log('error query:'+err.stack)
+            }
+        });
     });
     controlIo.emit('delete', mac);
     indexIo.emit('deconnex', mac);
@@ -186,8 +190,8 @@ function dbconnect() {
     var mysql = require('mysql');
     var connection = mysql.createConnection({
         host: 'localhost',
-        user: 'root',
-        password: '',
+        user: 'admin',
+        password: 'admin#portal',
         database: 'portailcaptif'
     });
 
