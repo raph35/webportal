@@ -10,13 +10,13 @@
     define('SQLPASS','admin#portal');
     
     //LDAP server
-    define('LDAPSERVER','192.168.10.163');
+    define('LDAPSERVER','192.168.10.45');
     define('LDAPPASS','123456');
     define('LDAPENTRI','cn=admin,dc=authentification,dc=com');
 
     //acounting
     
-    define('TIMELIMIT',3600);
+    define('TIMELIMIT',60);
 
 
 ?>

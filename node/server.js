@@ -49,14 +49,19 @@ app.post("/control", function(req, res) {
         sess.ip = req.body.ip;
         //sess.heure = req.body.heure;
         getUserTime(sess.pseudo).then(function(results){
-            sess.heure=results
-            data = [sess.pseudo, sess.mac, sess.ip, sess.heure];
+            sess.heure=results[0];
+            if(results[1]==0 || results[1]=='0')
+            {
+                res.redirect(301, 'http://10.42.0.1:81/');
+            }else{
+                data = [sess.pseudo, sess.mac, sess.ip, sess.heure];
 
-            //emission dans la page admin
-            indexIo.emit('connected', data);
-            //controlIo.emit('session', sess);
-            console.log(data);
-            res.sendFile(__dirname + '/control.html');
+                //emission dans la page admin
+                indexIo.emit('connected', data);
+                //controlIo.emit('session', sess);
+                console.log(data);
+                res.sendFile(__dirname + '/control.html');
+            }
         }).catch(function(err){
             console.log('promise rejection error : '+err)
         })
@@ -69,15 +74,20 @@ app.post("/control", function(req, res) {
 
 //-------------------------ajout du control de l'utilisateur----------------------//
 controlIo.on('connection', function(socket) {
+  
     //récupération des information de l'utilisateur depuis socket du route
     console.log('user connected:' + socket.handshake.session.pseudo)
     var pseudo = socket.handshake.session.pseudo,
         mac = socket.handshake.session.mac,
         ip = socket.handshake.session.ip,
         heure = socket.handshake.session.heure;
+        if(heure=='deleted'){
+            socket.emit('notEnter','notEnter');
+        }
         console.log('tonga any am user:'+heure);
         //autorisation
-        shell.exec("sudo /usr/local/lib/captiveportal/./addUser.sh " + mac)
+        shell.exec("sudo /usr/local/lib/captiveportal/./addUser.sh " + mac + " " + ip)
+    
     data = [pseudo, mac, ip, heure];
     socket.emit('about', data)
 
@@ -124,7 +134,8 @@ controlIo.on('connection', function(socket) {
         console.log(time);
         delUser(mac, time);
         console.log('To update Mysql:' + pseudo);
-        socket.handshake.session.heure=time;
+        socket.handshake.session.heure='deleted';
+        // socket.handshake.session.heure=5000;
         socket.handshake.session.save();
     })
 })
@@ -163,7 +174,7 @@ var delUser = function deleteUser(mac, time) {
     var db = dbconnect();
     db.connect(function(err) {
         //db.query("UPDATE $this->table SET heure='" + toDel[1] + "',isConnected='0' WHERE mac='" + toDel[0] + "'");
-        db.query("UPDATE connected SET heure=" + time + ",isConnected=0 WHERE mac='" + mac + "';",function(err,rows){
+        db.query("UPDATE connected SET heure=" + time + ",isConnected=0 WHERE mac='" + mac + "' AND isConnected=1;",function(err,rows){
             if(err){
                 console.log('error query:'+err.stack)
             }
@@ -171,7 +182,7 @@ var delUser = function deleteUser(mac, time) {
     });
     controlIo.emit('delete', mac);
     indexIo.emit('deconnex', mac);
-    shell.exec("sudo /home/raph35/Documents/Projets/findetudel3misa/gitHub/captivePortal/script_bash/./removeUser.sh " + mac);
+    shell.exec("sudo /usr/local/lib/captiveportal/removeUser.sh " + mac);
 }
 var deleteUserMac = function(mac) {
     controlIo.emit('delete', mac);
@@ -228,11 +239,11 @@ function getUserTime(pseudo){
     
     return new Promise((resolve,reject)=>{
         var db = dbconnect();
-        db.query("SELECT heure FROM connected WHERE pseudo= ?",[pseudo],(err,result)=>{
+        db.query("SELECT * FROM connected WHERE pseudo= ?",[pseudo],(err,result)=>{
             if(err){ reject(new Error(err)) }
             else {
-                console.log(result[0].heure)
-                resolve(result[0].heure)
+                console.log("hahah:"+result[0].isConnected)
+                resolve([result[0].heure,result[0].isConnected])
             }
         })
     })

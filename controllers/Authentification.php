@@ -45,21 +45,28 @@
                         $this->render('index');
                     }else{
                         $etudiant->heure=$check[1];
-                        $request="
-                        <form action='$etudiant->url' method='post' id='sendUser' style='display:none'>
-                            <input type='hidden' name='token' value='03246'>
-                            <input type='text' name='pseudo' value='$etudiant->pseudo'>
-                            <input type='text' name='mac' value='$etudiant->mac'>
-                            <input type='text' name='ip' value='$etudiant->ip'>
-                            <input type='text' name='heure' value='$etudiant->heure'>
-                        </form>
-                        ";
-                        echo $request;
-                        //$string_return = shell_exec("sudo /usr/local/lib/captiveportal/./addUser.sh " . $etudiant->mac);
-                        $confirm="<script>";
-                        $confirm.="alert('Bienvenue');sendUser.submit()";
-                        $confirm.="\n</script>";
-                        echo $confirm;
+                        if ($etudiant->heure <= 0){
+                            $error="Temps écoulé";
+                            $this->set(compact('error'));
+                            $this->render('index');
+                        }
+                        else{
+                            $request="
+                            <form action='$etudiant->url' method='post' id='sendUser' style='display:none'>
+                                <input type='hidden' name='token' value='03246'>
+                                <input type='text' name='pseudo' value='$etudiant->pseudo'>
+                                <input type='text' name='mac' value='$etudiant->mac'>
+                                <input type='text' name='ip' value='$etudiant->ip'>
+                                <input type='text' name='heure' value='$etudiant->heure'>
+                            </form>
+                            ";
+                            echo $request;
+                            //$string_return = shell_exec("sudo /usr/local/lib/captiveportal/./addUser.sh " . $etudiant->mac);
+                            $confirm="<script>";
+                            $confirm.="alert('Bienvenue');sendUser.submit()";
+                            $confirm.="\n</script>";
+                            echo $confirm;
+                        }
                     }
                 }
                 // $request="\n<script> ";

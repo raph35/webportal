@@ -44,11 +44,15 @@
         //bouton déconnexion
         var disconect = function() {
                 socket.emit('deconnection', mac.innerHTML)
-
+                window.location.href= "http://10.42.0.1:81/Acceuil/index"
             }
             //temps écoulé
         socket.on('noTime', function(msg) {
             alert(msg);
+            window.location.href= "http://10.42.0.1:81/Acceuil/index"
+        })
+        socket.on('notEnter',function(msg){
+            window.location.href= "http://10.42.0.1:81/Acceuil/index"
         })
     </script>
     <div class="field">
